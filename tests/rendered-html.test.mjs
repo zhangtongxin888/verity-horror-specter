@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { readdir } from "node:fs/promises";
 import test from "node:test";
 
 const workerUrl = new URL("../dist/server/index.js", import.meta.url);
@@ -79,4 +80,9 @@ test("publishes crawlable robots and complete sitemap", async () => {
     assert.match(xml, new RegExp(url.replace(/[.*+?^$()|[\]{}]/g, "\\$&")));
   }
   assert.equal((xml.match(/<url>/g) ?? []).length, pages.length);
+});
+
+test("static output does not load the Vinext link runtime", async () => {
+  const chunks = await readdir(new URL("../dist/client/_next/static/chunks/", import.meta.url));
+  assert.equal(chunks.filter((name) => name.startsWith("link-") && name.endsWith(".js")).length, 0);
 });

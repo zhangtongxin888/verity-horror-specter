@@ -1,3 +1,4 @@
+import { AdsterraPopunderGate, AdsterraSocialBarGate, AdsterraStickyRail, AdsterraGlobalFallback } from "@/components/ads";
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { SiteFooter, SiteHeader } from "./_components/SiteShell";
@@ -41,6 +42,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
+        <AdsterraPopunderGate />
+        <AdsterraSocialBarGate />
+        <AdsterraStickyRail />
+        <AdsterraGlobalFallback />
         <a className="skip-link" href="#main-content">Skip to guide</a>
         <SiteHeader />
         <div id="main-content" tabIndex={-1}>{children}</div>
